@@ -1,11 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/authReducer";
+// import { logoutUser } from "../redux/authReducer";
 export default function Button(props) {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     function handleClick() {
         if(props.label === 'Log in') {
-            window.location.href = '/login'
+            navigate('/login')
         } else if(props.label === 'Sign up') {
-            window.location.href = '/signup'
+            navigate('/signup')
+        } else if(props.label ==='Log out') {
+            
+            dispatch(logoutUser());
+            navigate('/login');
+            // window.location.href =
         }
     }
     return(

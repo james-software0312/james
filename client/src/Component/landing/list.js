@@ -10,44 +10,44 @@ export default function List() {
         'Cloud Hosting for BlockChain', 'Startup Resources'];
     let contact = ['Support', 'Sales', 'Report Abuse', 'System Status', 'Share your ideas'];
     return(
-        <div className="grid grid-cols-5 m-40">
-            <div className="flex flex-col">
+        <div className=" block md:grid md:grid-cols-5 md:m-40">
+            <div className="flex flex-col  text-center">
                 <h1 className="m-2 font-bold mb-[25px] text-[16px]">Company</h1>
                 {
                     company.map(item => 
-                        <a key = {item} className="m-2 text-[#636F8C]"> {item}</a>
+                        <a key = {item} className="hidden md:m-2 md:text-[#636F8C] md:block"> {item}</a>
                     )
                 }
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-center">
                 <h1 className="m-2 font-bold mb-[25px] text-[16px]">Products</h1>
                 {
                     products.map(item => 
-                        <a key = {item} className="m-2 text-[#636F8C]"> {item}</a>
+                        <a key = {item} className="hidden md:m-2 md:text-[#636F8C] md:block"> {item}</a>
                     )
                 }
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-center">
                 <h1 className="m-2 font-bold mb-[25px] text-[16px]">Resources</h1>
                 {
                     resources.map(item => 
-                        <a key = {item} className="m-2 text-[#636F8C]"> {item}</a>
+                        <a key = {item} className="hidden md:m-2 md:text-[#636F8C] md:block"> {item}</a>
                     )
                 }
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-center">
                 <h1 className="m-2 font-bold mb-[25px] text-[16px]">Solutions</h1>
                 {
                     solutions.map(item => 
-                        <a key = {item} className="m-2 text-[#636F8C]"> {item}</a>
+                        <a key = {item} className="hidden md:m-2 md:text-[#636F8C] md:block"> {item}</a>
                     )
                 }
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-center">
                 <h1 className="m-2 font-bold mb-[25px] text-[16px]">Contact</h1>
                 {
                     contact.map(item => 
-                        <a key = {item} className="m-2 text-[#636F8C]"> {item}</a>
+                        <a key = {item} className="hidden md:m-2 md:text-[#636F8C] md:block"> {item}</a>
                     )
                 }
             </div>

@@ -31,5 +31,6 @@ app.use(express.json());
 
 app.use('/', [
   require('./Routes/AuthRoute'),
-  require('./Routes/dashboardRoute')
+  require('./Routes/dashboardRoute'),
+  require('./Routes/articleRoute'),
 ])

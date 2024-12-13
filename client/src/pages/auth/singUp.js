@@ -6,10 +6,13 @@ import CustomizeRadio from "../../Component/customizeRadio";
 import { useDispatch } from "react-redux";
 import { openSnackBar } from "../../redux/snackBarReducer";
 import { registerUser } from "../../redux/authReducer";
+import { Link , useNavigate} from "react-router-dom";
 
 export default function SignUp() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({firstName: '', lastName: '', password: '', email: ''});
+    // const [email, setEmail]
     const [password, setPassword] = useState('');
     const [long, setLong] = useState(false);
     const [small, setSmall] = useState(false);
@@ -26,25 +29,40 @@ export default function SignUp() {
     function hasLowerCase(str) {
         return /[a-z]/.test(str);
     }
+
+    function validateEmail(email) {
+        const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return re.test(email);
+      }
       
-    function handleClick() {
-        if(formData.email === '' || formData.email.length < 4){
-            dispatch(openSnackBar({status: 'warning', message: 'Please fill email'}));
+    async function handleClick() {
+        console.log(validateEmail(formData.email));
+        if(!validateEmail(formData.email)) {
+            dispatch(openSnackBar({status: 'warning', message: 'Email is not valid.'}))
             return;
         }
-        if(formData.firstName === '' || formData.firstName.length < 4){
+        if(formData.email === '' || formData.email.length < 3){
+            dispatch(openSnackBar({status: 'warning', message: 'Email letter is more than 3 letters.'}));
+            return;
+        }
+        if(formData.firstName === '' || formData.firstName.length < 3){
             dispatch(openSnackBar({status: 'warning', message: 'Please fill firstName'}));
             return;
         }
-        if(formData.lastName === '' || formData.lastName.length < 4){
+        if(formData.lastName === '' || formData.lastName.length < 3){
             dispatch(openSnackBar({status: 'warning', message: 'Please fill lastName'}));
             return;
         }
-        if(formData.password === '' || formData.password.length < 4){
+        if(formData.password === '' || formData.password.length < 3){
+            console.log('formData ,', formData.password);
             dispatch(openSnackBar({status: 'warning', message: 'Please fill password'}));
             return;
         }
-        dispatch(registerUser(formData))
+        const signupStatus  = await dispatch(registerUser(formData));
+        console.log(signupStatus,'sdsdfs');
+        if(signupStatus) {
+            navigate('/login');
+        }
     }
 
 
@@ -56,12 +74,40 @@ export default function SignUp() {
         }  
     },[password])
 
-    function setForm(key, value) {
-        
-    }
+    useEffect(() => {
+        if(findCapitalLetters(password).length) {
+            console.log(findCapitalLetters(password));
+            setCapital(true);
+        } else {
+            setCapital(false);
+        }
+    }, [password]);
 
+    useEffect(() => {
+        if(hasLowerCase(password)) {
+            setSmall(true);
+        } else {
+            setSmall(false);
+        }
+        let formD = formData;
+        formD['password'] = password;
+        setFormData(formD);
+    },[password]);
+
+    useEffect(() => {
+        if(password.match(/\d+/g)) {
+            setNumber(true);
+        } else {
+            setNumber(false);
+        }
+    },[password])
     
-
+    function setForm(key, value) {
+        console.log(key, value);
+        let formD = formData;
+        formD[`${key}`] = value;
+        setFormData(formD);
+    }
     return(
             <Layout>
                 <div className = "border-solid border-2 border-[#36D68F] rounded-[7px] flex flex-col w-[100%] md:w-[35%]  p-[20px] gap-[10px]">
@@ -84,7 +130,7 @@ export default function SignUp() {
                         onClick = {handleClick}>Sign Up</button>
                     <div className="flex justify-center gap-[10px]">
                         <h5 className="text-white hidden xl:block">Already have an account?</h5>
-                        <a href="/login" className="text-cyan-500">Login</a> 
+                        <Link to='/login' className="text-white" >Log in</Link>
                     </div>
                 </div>
             </Layout>

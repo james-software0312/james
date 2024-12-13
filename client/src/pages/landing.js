@@ -9,9 +9,6 @@ import List from "../Component/landing/list";
 
 export default function Landing() {
 
-    function handleRedirect() {
-        window.location.href = '/login'
-    }
     return(
         <div className="bg-F9FAFE">
             <Navbar></Navbar>
@@ -25,7 +22,7 @@ export default function Landing() {
             <Digital />
             <hr></hr>
             <Title title = "DigitalOcean‘s Picks"></Title>
-            <div className="inline-grid grid-cols-4 gap-4 pl-[20px] pr-[20px]">
+            <div className="block md:inline-grid md:grid-cols-4 md:gap-4 md:pl-[20px] md:pr-[20px]">
                 <Card label = "Engineering" color = '#D8C1FF'
                     content = 'Managing Kubernetes at scale with DigitalOcean'></Card>
                 <Card label = "Cloud Education" color = '#7BDEFF'

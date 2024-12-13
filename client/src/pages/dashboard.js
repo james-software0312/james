@@ -8,7 +8,6 @@ export default function Dashboard() {
     const dispatch = useDispatch();
     function handleLogOut() {
         dispatch(logoutUser());
-        window.location.href ='/login';
     }
     useEffect(() => {
         axios.get(`${API_URL}/dashboard`).then(res => {

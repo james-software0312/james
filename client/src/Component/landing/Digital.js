@@ -7,7 +7,7 @@ export default function Digital() {
         <div className="block m-10 lg:grid lg:grid-cols-10 gap-4">
             <a className="col-span-6 hover:bg-[#FFFFFF] hover:shadow-2xl " href="#">
 
-                <img src={Ocean} ></img>
+                <img src={Ocean} className="w-[100%]"></img>
                 <h4>DigitalOcean Hatch: AI/ML startup with exclusive GPU
                         offerrings and benefits
                 </h4>

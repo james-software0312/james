@@ -7,9 +7,10 @@ import CustomizeInput from "../../Component/customizeInput";
 import CustomizeRadio from "../../Component/customizeRadio";
 import { openSnackBar } from "../../redux/snackBarReducer";
 import { loginUser } from "../../redux/authReducer";
+import { Link, useNavigate  } from "react-router-dom";
 
 export default function Login(props) {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggin = useSelector(state => state.authState);  
     console.log(loggin);
@@ -21,8 +22,7 @@ export default function Login(props) {
         console.log(formData);
     }
 
-    function handleLogging() {
-        console.log(formData)
+    async function handleLogging() {
         if(formData.email === '') {
             dispatch(openSnackBar({status: 'warning', message: 'Please fill email'}));
             return;
@@ -31,7 +31,11 @@ export default function Login(props) {
             dispatch(openSnackBar({status: 'warning', message: 'Please fill password'}));
             return ;
         }
-        dispatch(loginUser(formData))
+        const loginStatus = await dispatch(loginUser(formData));
+        if(loginStatus) {
+            navigate('/dashboard');
+        }
+
     }
     return(
         <Layout>
@@ -46,7 +50,8 @@ export default function Login(props) {
                     onClick={handleLogging}>Login</button>
                 <div className="flex justify-center gap-[10px]">
                     <h5 className="text-white">Dont't have an account?</h5>
-                    <a href="/signup" className="text-cyan-500">SignUp</a> 
+                    {/* <a href="/signup" className="text-cyan-500">SignUp</a>  */}
+                    <Link to='/signup' className="text-white" >Sign up</Link>
                 </div>
             </div>
         </Layout>

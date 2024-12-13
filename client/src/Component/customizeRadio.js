@@ -5,8 +5,12 @@ import checkImage from '../assets/img/check.png'
 export default function CustomizeRadio(props) {
     const [checkingState, setState] = useState(props.value)
     function handleChange() {
-        setState(!checkingState);
+        // setState(!checkingState);
     }
+
+    useEffect(() => {
+        setState(props.value);
+    },[props.value])
     return(
         <div className="flex gap-[5px]">
             {

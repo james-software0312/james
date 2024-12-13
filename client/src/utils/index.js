@@ -6,7 +6,7 @@ export const authHeader = () => {
 
     if (user && user.token){
         return {
-            'Authorization': 'Bearer ' + user.token,
+            'Authorization':  user.token,
             'Access-Control-Allow-Origin': "*",
             'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'
         }

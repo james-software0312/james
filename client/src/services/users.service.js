@@ -3,16 +3,21 @@ import { API_URL } from '../config/constants';
 import axios from 'axios';
 
 const login =  async (formData) => {
-
-    axios.post(`${API_URL}/login`,  formData).then(res => {
-        const token = res.data.token;
-        if(token) {
+   try {
+        let token = '';
+        const res = await axios.post(`${API_URL}/login`,  formData);
+        console.log('res.status >>>>>> ', res.status);
+        if(res.data.success) {
+            token = res.data.token;
             localStorage.setItem('userToken', token);
-            window.location.href = '/dashboard';
+            return {success: true, token: token};
+        } else {
+            return {success: false, token: ''};
         }
-    }).catch(err => {
+   } catch(err) {
         console.log(err);
-    })
+        // alert(err);
+   }
 }
 
 const logout = () => {
@@ -20,16 +25,8 @@ const logout = () => {
 }
 
 const registerUser = async (user) => {
-    const requestOptions = {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user)
-    };
-
-    const response = await fetch(`${API_URL}/signup`, requestOptions);
-    return await handleResponse(response, logout);
+    const res = await axios.post(`${API_URL}/signup`, user);
+    return res.data;
 }
 
 export const userService = {
